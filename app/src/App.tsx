@@ -104,7 +104,7 @@ function App() {
 
         <main
           className={`flex-1 transition-all duration-300 ${
-            sidebarOpen ? 'ml-80' : 'ml-0'
+            sidebarOpen ? 'ml-0 lg:ml-80' : 'ml-0'
           }`}
         >
           <div className="max-w-5xl mx-auto p-6 lg:p-8">
