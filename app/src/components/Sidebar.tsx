@@ -92,11 +92,7 @@ export function Sidebar({
 
             return (
               <div key={part.id} className="mb-1">
-                <button
-                  onClick={() => {
-                    togglePart(part.id);
-                    onSelectPart(part.id);
-                  }}
+                <div
                   className={`w-full flex items-center gap-2 px-3 py-2.5 rounded-lg transition-colors ${
                     isSelected
                       ? 'bg-emerald-500/10 text-emerald-400'
@@ -104,11 +100,9 @@ export function Sidebar({
                   }`}
                 >
                   <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      togglePart(part.id);
-                    }}
+                    onClick={() => togglePart(part.id)}
                     className="p-0.5 hover:bg-slate-700 rounded"
+                    aria-label={isExpanded ? `Collapse ${part.title}` : `Expand ${part.title}`}
                   >
                     {isExpanded ? (
                       <ChevronDown className="w-4 h-4" />
@@ -116,6 +110,15 @@ export function Sidebar({
                       <ChevronRight className="w-4 h-4" />
                     )}
                   </button>
+                  <button
+                    onClick={() => {
+                      onSelectPart(part.id);
+                      if (!isExpanded) {
+                        togglePart(part.id);
+                      }
+                    }}
+                    className="flex-1 flex items-center gap-2 min-w-0"
+                  >
                   <span className="flex-1 text-left text-sm font-medium truncate">
                     {part.title.replace('Part ', '').split(' - ')[1] || part.title}
                   </span>
@@ -133,7 +136,8 @@ export function Sidebar({
                       <CheckCircle2 className="w-4 h-4 text-emerald-500" />
                     )}
                   </div>
-                </button>
+                  </button>
+                </div>
 
                 {isExpanded && (
                   <div className="ml-4 mt-1 space-y-0.5">
